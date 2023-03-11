@@ -51,17 +51,19 @@ export default function CreateTransaction({
   let decodedDataObject = "";
   useEffect(() => {
     const inputTimer = setTimeout(async () => {
-      console.log("EFFECT RUNNING");
+      console.log("EFFECT RUNNING", data);
       try {
-        // if(methodName == "transferFunds"){
-        //   console.log("Send transaction selected")
-        //   console.log("🔥🔥🔥🔥🔥🔥",amount)
-        //     const calldata = readContracts[contractName].interface.encodeFunctionData("transferFunds",[to,parseEther("" + parseFloat(amount).toFixed(12))])
-        //     setData(calldata);
-        // }
-        // decodedDataObject = readContracts ? await readContracts[contractName].interface.parseTransaction({ data }) : "";
-        // console.log("decodedDataObject", decodedDataObject);
-        // setCreateTxnEnabled(true);
+        if(methodName == "transferFunds"){
+          console.log("Send transaction selected")
+          console.log("🔥🔥🔥🔥🔥🔥",amount)
+            const calldata = readContracts[contractName].interface.encodeFunctionData("transferFunds",[to,parseEther("" + parseFloat(amount).toFixed(12))])
+            console.log(calldata, 'Cal data rererer');
+            setData(calldata);
+        }
+        decodedDataObject = readContracts ? await readContracts[contractName].interface.parseTransaction({ data }) : "";
+        console.log("decodedDataObject", decodedDataObject);
+        setCreateTxnEnabled(true);
+        console.log(decodedDataObject, "decoded data object");
         if(decodedDataObject.signature === "addSigner(address,uint256)"){
           setMethodName("addSigner")
           setSelectDisabled(true)

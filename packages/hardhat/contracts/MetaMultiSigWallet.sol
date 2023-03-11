@@ -64,6 +64,12 @@ contract MetaMultiSigWallet {
         signaturesRequired = newSignaturesRequired;
     }
 
+    function transferFunds(address to, uint256 amount) public onlySelf {
+        require(amount <= address(this).balance, "Insufficient balance in the contract");
+        (bool sent, ) = payable(to).call{value: amount}("");
+        require(sent, "Failed to transact");
+    }
+
     function getTransactionHash(uint256 _nonce, address to, uint256 value, bytes memory data) public view returns (bytes32) {
         return keccak256(abi.encodePacked(address(this), chainId, _nonce, to, value, data));
     }

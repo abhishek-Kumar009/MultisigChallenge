@@ -21,6 +21,7 @@ describe("MetaMultiSigWallet Test", () => {
   // Deploys MetaMultiSigWallet and sets up some addresses for easier testing
   beforeEach(async function () {
     [owner, addr1, addr2, addr3, ...addrs] = await ethers.getSigners();
+    console.log(owner.address, 'Owner hrer@@@@@');
 
     let metaMultiSigWalletFactory = await ethers.getContractFactory("MetaMultiSigWallet");
 
@@ -38,7 +39,7 @@ describe("MetaMultiSigWallet Test", () => {
   });
 
   describe("Deployment", () => {
-    it("isOwner should return true for the owner address", async () => {     
+    it("isOwner should return true for the owner address", async () => {
       expect(await metaMultiSigWallet.isOwner(owner.address)).to.equal(true);
     });
 
